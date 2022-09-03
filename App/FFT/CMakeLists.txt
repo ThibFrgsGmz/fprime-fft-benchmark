@@ -7,7 +7,7 @@
 # Note: using PROJECT_NAME as EXECUTABLE_NAME
 ####
 set(SOURCE_FILES
-    "${CMAKE_CURRENT_LIST_DIR}/FFT.fpp"
-    "${CMAKE_CURRENT_LIST_DIR}/FFT.cpp"
+    ${CMAKE_CURRENT_LIST_DIR}/FFT.fpp
+    ${CMAKE_CURRENT_LIST_DIR}/FFT.cpp
 )
 register_fprime_module()
