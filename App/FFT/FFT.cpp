@@ -51,7 +51,7 @@ namespace App {
   {
     if (m_enable) {
       F32 fft_duration;
-      fft_duration = FFT::do_fft_bench(FFT::m_fft_power);
+      fft_duration = FFT::run_bench(FFT::m_fft_power);
       Fw::Logger::logMsg("Elapsed time = %f sec\n", fft_duration);
       tlmWrite_ELAPSED_TIME(fft_duration);
     }
@@ -91,7 +91,7 @@ namespace App {
   }
 
   F32 FFT
-    ::do_fft_bench(int size) {
+    ::run_bench(int size) {
     /* variable init */
     clock_t start;
     clock_t end;
