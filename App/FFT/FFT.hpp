@@ -8,6 +8,7 @@
 #define FFT_HPP
 
 #include "App/FFT/FFTComponentAc.hpp"
+#include <random>
 
 namespace App {
 
@@ -57,6 +58,11 @@ namespace App {
 
       U32 m_fft_power;
       bool m_enable;
+      F64 random_lower_bound;
+      F64 random_upper_bound;
+      std::default_random_engine re;
+      clock_t start_bench;
+      clock_t end_bench;
 
       // ----------------------------------------------------------------------
       // Command handler implementations

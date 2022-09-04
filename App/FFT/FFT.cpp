@@ -22,6 +22,9 @@ namespace App {
     ) : FFTComponentBase(compName)
   {
 
+    random_lower_bound = 0;
+    random_upper_bound = 255;
+
   }
 
   void FFT ::
@@ -93,9 +96,7 @@ namespace App {
   F32 FFT
     ::run_bench(U32 dim) {
     /* variable init */
-    clock_t start;
-    clock_t end;
-    U32 dim_out = pow(2,size);
+    U32 dim_out = pow(2,dim);
     U32 dim_out_square = pow(2,dim_out);
     U32 i = 0;
 
@@ -107,12 +108,14 @@ namespace App {
     memset(b, 0, sizeof(complex)*dim_out_square);
     memset(ab, 0, sizeof(complex)*dim_out_square);
     
+    std::uniform_real_distribution<double> unif(random_lower_bound,random_upper_bound);
+
     for (i = 0; i < dim_out_square; i++) {
-      a[i].re =  rand() % 255;
-      b[i].re =  rand() % 255;
+      a[i].re =  unif(re);
+      b[i].re =  unif(re);
     }
 
-    start = clock();
+    start_bench = clock();
 
     fft2_d(a, dim, dim, 'n');
     fft2_d(b, dim, dim, 'n');
@@ -124,9 +127,9 @@ namespace App {
     }
 
     fft2_d(ab, dim, dim, 'd');
-    end = clock();
+    end_bench = clock();
 
-    float seconds = (float)(end - start) / CLOCKS_PER_SEC;
+    float seconds = (float)(end_bench - start_bench) / CLOCKS_PER_SEC;
 
     free(a);
     free(b);
