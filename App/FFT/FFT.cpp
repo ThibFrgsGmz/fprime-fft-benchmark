@@ -98,19 +98,14 @@ namespace App {
     /* variable init */
     U32 dim_out = pow(2,dim);
     U32 dim_out_square = pow(2,dim_out);
-    U32 i = 0;
 
-    complex * a = (complex*)malloc(sizeof(complex)*dim_out_square);
-    complex * b = (complex*)malloc(sizeof(complex)*dim_out_square);
-    complex * ab= (complex*)malloc(sizeof(complex)*dim_out_square);
-
-    memset(a, 0, sizeof(complex)*dim_out_square);
-    memset(b, 0, sizeof(complex)*dim_out_square);
-    memset(ab, 0, sizeof(complex)*dim_out_square);
+    complex * a = (complex*)calloc(dim_out_square, sizeof(complex));
+    complex * b = (complex*)calloc(dim_out_square, sizeof(complex));
+    complex * ab= (complex*)calloc(dim_out_square, sizeof(complex));
     
     std::uniform_real_distribution<double> unif(random_lower_bound,random_upper_bound);
 
-    for (i = 0; i < dim_out_square; i++) {
+    for (U32 i = 0; i < dim_out_square; i++) {
       a[i].re =  unif(re);
       b[i].re =  unif(re);
     }
@@ -127,15 +122,16 @@ namespace App {
     }
 
     fft2_d(ab, dim, dim, 'd');
+
     end_bench = clock();
 
-    float seconds = (float)(end_bench - start_bench) / CLOCKS_PER_SEC;
+    fft_duration = (F32)(end_bench - start_bench) / CLOCKS_PER_SEC;
 
     free(a);
     free(b);
     free(ab);
 
-    return seconds;
+    return fft_duration;
   }
 
 } // end namespace App

@@ -63,6 +63,7 @@ namespace App {
       std::default_random_engine re;
       clock_t start_bench;
       clock_t end_bench;
+      F32 fft_duration;
 
       // ----------------------------------------------------------------------
       // Command handler implementations
