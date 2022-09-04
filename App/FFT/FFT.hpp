@@ -82,8 +82,6 @@ namespace App {
           */
       );
 
-      void fft2(struct complex *ft, int m, int inv);
-      void fft2_d(struct complex *a, int m, int n, int f);
       F32 do_fft_bench(int size);
 
     };
