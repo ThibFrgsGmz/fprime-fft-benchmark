@@ -91,23 +91,23 @@ namespace App {
   }
 
   F32 FFT
-    ::run_bench(int size) {
+    ::run_bench(U32 dim) {
     /* variable init */
     clock_t start;
     clock_t end;
-    int dim = size;
-    int dim_out = pow(2,size); //(2^dim)
-    size_t i = 0;
+    U32 dim_out = pow(2,size);
+    U32 dim_out_square = pow(2,dim_out);
+    U32 i = 0;
 
-    complex * a = (complex*)malloc(sizeof(complex)*dim_out*dim_out);
-    complex * b = (complex*)malloc(sizeof(complex)*dim_out*dim_out);
-    complex * ab= (complex*)malloc(sizeof(complex)*dim_out*dim_out);
+    complex * a = (complex*)malloc(sizeof(complex)*dim_out_square);
+    complex * b = (complex*)malloc(sizeof(complex)*dim_out_square);
+    complex * ab= (complex*)malloc(sizeof(complex)*dim_out_square);
 
-    memset(a, 0, sizeof(complex)*dim_out*dim_out);
-    memset(b, 0, sizeof(complex)*dim_out*dim_out);
-    memset(ab, 0, sizeof(complex)*dim_out*dim_out);
+    memset(a, 0, sizeof(complex)*dim_out_square);
+    memset(b, 0, sizeof(complex)*dim_out_square);
+    memset(ab, 0, sizeof(complex)*dim_out_square);
     
-    for (i = 0; i < dim_out*dim_out; i++) {
+    for (i = 0; i < dim_out_square; i++) {
       a[i].re =  rand() % 255;
       b[i].re =  rand() % 255;
     }
@@ -117,8 +117,8 @@ namespace App {
     fft2_d(a, dim, dim, 'n');
     fft2_d(b, dim, dim, 'n');
 
-    for (int li = 0; li < dim_out; li++) {
-      for (int col = 0; col < dim_out; col++) {
+    for (U32 li = 0; li < dim_out; li++) {
+      for (U32 col = 0; col < dim_out; col++) {
       ab[col + li * dim_out] = a[col + li * dim_out] * b[col + li * dim_out];
       }
     }

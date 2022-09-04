@@ -82,7 +82,7 @@ namespace App {
           */
       );
 
-      F32 run_bench(int size);
+      F32 run_bench(U32 dim);
 
     };
 
