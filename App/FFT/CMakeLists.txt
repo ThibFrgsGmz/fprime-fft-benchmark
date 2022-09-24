@@ -9,7 +9,7 @@
 set(SOURCE_FILES
     ${CMAKE_CURRENT_LIST_DIR}/FFT.fpp
     ${CMAKE_CURRENT_LIST_DIR}/FFT.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/fft2_d.c
-    ${CMAKE_CURRENT_LIST_DIR}/fft2.c
+    ${CMAKE_CURRENT_LIST_DIR}/ccmath/fft2_d.c
+    ${CMAKE_CURRENT_LIST_DIR}/ccmath/fft2.c
 )
 register_fprime_module()

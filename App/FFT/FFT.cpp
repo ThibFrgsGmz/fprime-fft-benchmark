@@ -4,9 +4,9 @@
 // \brief  cpp file for FFT component implementation class
 // ======================================================================
 
-#include "fft.h"
-#include "Fw/Types/BasicTypes.hpp"
-#include <App/FFT/FFT.hpp>
+#include "FFT.hpp"
+#include "ccmath/fft.h"
+#include <Fw/Types/BasicTypes.hpp>
 #include <Fw/Logger/Logger.hpp>
 #include <math.h>
 
