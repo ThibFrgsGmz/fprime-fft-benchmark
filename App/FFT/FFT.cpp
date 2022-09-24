@@ -63,8 +63,7 @@ complex operator*(complex a, complex b) {
 }
 
 F32 FFT ::run_bench(U32 dim) {
-    /* variable init */
-    U32 dim_out = pow(2, dim);
+    U32 dim_out = 1 << dim;
     U32 dim_out_square = pow(dim_out, 2);
 
     complex *a = (complex *)calloc(dim_out_square, sizeof(complex));
