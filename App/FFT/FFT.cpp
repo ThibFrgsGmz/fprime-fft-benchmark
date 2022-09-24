@@ -79,8 +79,8 @@ F32 FFT ::run_bench(U32 dim) {
 
     start_bench = clock();
 
-    fft2_d(a, dim, dim, 'n');
-    fft2_d(b, dim, dim, 'n');
+    fft2_d(a, dim, dim, 'd');
+    fft2_d(b, dim, dim, 'd');
 
     for (U32 row = 0; row < dim_out; row++) {
         for (U32 column = 0; column < dim_out; column++) {
