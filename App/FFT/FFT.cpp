@@ -17,8 +17,8 @@ namespace App {
 // ----------------------------------------------------------------------
 
 FFT ::FFT(const char *const compName) : FFTComponentBase(compName) {
-    random_lower_bound = 0;
-    random_upper_bound = 255;
+    m_random_lower_bound = 0;
+    m_random_upper_bound = 255;
 }
 
 void FFT ::init(const NATIVE_INT_TYPE queueDepth, const NATIVE_INT_TYPE instance) {
@@ -34,10 +34,10 @@ FFT ::~FFT() {
 
 void FFT ::schedIn_handler(const NATIVE_INT_TYPE portNum, NATIVE_UINT_TYPE context) {
     if (m_enable) {
-        F32 fft_duration;
-        fft_duration = FFT::run_bench(FFT::m_fft_power);
-        Fw::Logger::logMsg("Elapsed time = %f sec\n", fft_duration);
-        tlmWrite_ELAPSED_TIME(fft_duration);
+        if (FFT::run_bench(FFT::m_fft_power)) {
+            Fw::Logger::logMsg("Elapsed time = %f sec\n", m_fft_duration);
+            tlmWrite_ELAPSED_TIME(m_fft_duration);
+        }
     }
 }
 
@@ -62,7 +62,7 @@ complex operator*(complex a, complex b) {
     return r;
 }
 
-F32 FFT ::run_bench(U32 dim) {
+bool FFT ::run_bench(U32 dim) {
     U32 dim_out = 1 << dim;
     U32 dim_out_square = pow(dim_out, 2);
 
@@ -70,14 +70,14 @@ F32 FFT ::run_bench(U32 dim) {
     complex *b = (complex *)calloc(dim_out_square, sizeof(complex));
     complex *ab = (complex *)calloc(dim_out_square, sizeof(complex));
 
-    std::uniform_real_distribution<double> unif(random_lower_bound, random_upper_bound);
+    std::uniform_real_distribution<double> unif(m_random_lower_bound, m_random_upper_bound);
 
     for (U32 i = 0; i < dim_out_square; i++) {
-        a[i].re = unif(re);
-        b[i].re = unif(re);
+        a[i].re = unif(m_random_engine);
+        b[i].re = unif(m_random_engine);
     }
 
-    start_bench = clock();
+    m_start_bench = clock();
 
     fft2_d(a, dim, dim, 'd');
     fft2_d(b, dim, dim, 'd');
@@ -90,15 +90,15 @@ F32 FFT ::run_bench(U32 dim) {
 
     fft2_d(ab, dim, dim, 'd');
 
-    end_bench = clock();
+    m_end_bench = clock();
 
-    fft_duration = (F32)(end_bench - start_bench) / CLOCKS_PER_SEC;
+    m_fft_duration = (F32)(m_end_bench - m_start_bench) / CLOCKS_PER_SEC;
 
     free(a);
     free(b);
     free(ab);
 
-    return fft_duration;
+    return true;
 }
 
 } // end namespace App

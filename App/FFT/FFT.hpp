@@ -58,12 +58,12 @@ namespace App {
 
       U32 m_fft_power;
       bool m_enable;
-      F64 random_lower_bound;
-      F64 random_upper_bound;
-      std::default_random_engine re;
-      clock_t start_bench;
-      clock_t end_bench;
-      F32 fft_duration;
+      F64 m_random_lower_bound;
+      F64 m_random_upper_bound;
+      std::default_random_engine m_random_engine;
+      clock_t m_start_bench;
+      clock_t m_end_bench;
+      F32 m_fft_duration;
 
       // ----------------------------------------------------------------------
       // Command handler implementations
@@ -89,7 +89,7 @@ namespace App {
           */
       );
 
-      F32 run_bench(U32 dim);
+      bool run_bench(U32 dim);
 
     };
 
