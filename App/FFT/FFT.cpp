@@ -10,37 +10,30 @@
 #include <Fw/Logger/Logger.hpp>
 #include <math.h>
 
-namespace App
-{
+namespace App {
 
 // ----------------------------------------------------------------------
 // Construction, initialization, and destruction
 // ----------------------------------------------------------------------
 
-FFT ::FFT(const char *const compName) : FFTComponentBase(compName)
-{
-
+FFT ::FFT(const char *const compName) : FFTComponentBase(compName) {
     random_lower_bound = 0;
     random_upper_bound = 255;
 }
 
-void FFT ::init(const NATIVE_INT_TYPE queueDepth, const NATIVE_INT_TYPE instance)
-{
+void FFT ::init(const NATIVE_INT_TYPE queueDepth, const NATIVE_INT_TYPE instance) {
     FFTComponentBase::init(queueDepth, instance);
 }
 
-FFT ::~FFT()
-{
+FFT ::~FFT() {
 }
 
 // ----------------------------------------------------------------------
 // Handler implementations for user-defined typed input ports
 // ----------------------------------------------------------------------
 
-void FFT ::schedIn_handler(const NATIVE_INT_TYPE portNum, NATIVE_UINT_TYPE context)
-{
-    if (m_enable)
-    {
+void FFT ::schedIn_handler(const NATIVE_INT_TYPE portNum, NATIVE_UINT_TYPE context) {
+    if (m_enable) {
         F32 fft_duration;
         fft_duration = FFT::run_bench(FFT::m_fft_power);
         Fw::Logger::logMsg("Elapsed time = %f sec\n", fft_duration);
@@ -52,28 +45,24 @@ void FFT ::schedIn_handler(const NATIVE_INT_TYPE portNum, NATIVE_UINT_TYPE conte
 // Command handler implementations
 // ----------------------------------------------------------------------
 
-void FFT ::ENABLE_cmdHandler(const FwOpcodeType opCode, const U32 cmdSeq, App::FFTEnabled enable)
-{
+void FFT ::ENABLE_cmdHandler(const FwOpcodeType opCode, const U32 cmdSeq, App::FFTEnabled enable) {
     m_enable = (enable == FFTEnabled::ENABLED);
     this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
 }
 
-void FFT ::UPDATE_POWER_cmdHandler(const FwOpcodeType opCode, const U32 cmdSeq, U32 power)
-{
+void FFT ::UPDATE_POWER_cmdHandler(const FwOpcodeType opCode, const U32 cmdSeq, U32 power) {
     m_fft_power = power;
     this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
 }
 
-complex operator*(complex a, complex b)
-{
+complex operator*(complex a, complex b) {
     complex r;
     r.re = a.re * b.re - a.im * b.im;
     r.im = a.re * b.im + b.re * a.im;
     return r;
 }
 
-F32 FFT ::run_bench(U32 dim)
-{
+F32 FFT ::run_bench(U32 dim) {
     /* variable init */
     U32 dim_out = pow(2, dim);
     U32 dim_out_square = pow(2, dim_out);
@@ -84,8 +73,7 @@ F32 FFT ::run_bench(U32 dim)
 
     std::uniform_real_distribution<double> unif(random_lower_bound, random_upper_bound);
 
-    for (U32 i = 0; i < dim_out_square; i++)
-    {
+    for (U32 i = 0; i < dim_out_square; i++) {
         a[i].re = unif(re);
         b[i].re = unif(re);
     }
@@ -95,10 +83,8 @@ F32 FFT ::run_bench(U32 dim)
     fft2_d(a, dim, dim, 'n');
     fft2_d(b, dim, dim, 'n');
 
-    for (U32 li = 0; li < dim_out; li++)
-    {
-        for (U32 col = 0; col < dim_out; col++)
-        {
+    for (U32 li = 0; li < dim_out; li++) {
+        for (U32 col = 0; col < dim_out; col++) {
             ab[col + li * dim_out] = a[col + li * dim_out] * b[col + li * dim_out];
         }
     }
