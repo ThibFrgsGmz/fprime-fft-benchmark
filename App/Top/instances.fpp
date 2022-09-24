@@ -172,28 +172,28 @@ module App {
   }
 
   instance fft1: App.FFT base id 0xD00 \
-  queue size 20 \
-  stack size Default.stackSize \
-  priority 101 \
-  cpu 0
+    queue size 20 \
+    stack size Default.stackSize \
+    priority 101 \
+    cpu 0
 
   instance fft2: App.FFT base id 0xE00 \
-  queue size 20 \
-  stack size Default.stackSize \
-  priority 101 \
-  cpu 1
+    queue size 20 \
+    stack size Default.stackSize \
+    priority 101 \
+    cpu 1
 
-  instance fft3: App.FFT base id 0xF00 \
-  queue size 20 \
-  stack size Default.stackSize \
-  priority 101 \
-  cpu 2
+  # instance fft3: App.FFT base id 0xF00 \
+  #   queue size 20 \
+  #   stack size Default.stackSize \
+  #   priority 101 \
+  #   cpu 2
 
-  instance fft4: App.FFT base id 0x1000 \
-  queue size 20 \
-  stack size Default.stackSize \
-  priority 101 \
-  cpu 3
+  # instance fft4: App.FFT base id 0x1000 \
+  #   queue size 20 \
+  #   stack size Default.stackSize \
+  #   priority 101 \
+  #   cpu 3
 
   # ----------------------------------------------------------------------
   # Queued component instances

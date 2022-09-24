@@ -47,8 +47,8 @@ module App {
     instance systemResources
     instance fft1
     instance fft2
-    instance fft3
-    instance fft4
+    # instance fft3
+    # instance fft4
 
     # ----------------------------------------------------------------------
     # Pattern graph specifiers
@@ -101,8 +101,8 @@ module App {
       rateGroup1Comp.RateGroupMemberOut[2] -> systemResources.run
       rateGroup1Comp.RateGroupMemberOut[3] -> fft1.schedIn
       rateGroup1Comp.RateGroupMemberOut[4] -> fft2.schedIn
-      rateGroup1Comp.RateGroupMemberOut[5] -> fft3.schedIn
-      rateGroup1Comp.RateGroupMemberOut[6] -> fft4.schedIn
+      # rateGroup1Comp.RateGroupMemberOut[5] -> fft3.schedIn
+      # rateGroup1Comp.RateGroupMemberOut[6] -> fft4.schedIn
 
       # Rate group 2
       rateGroupDriverComp.CycleOut[Ports_RateGroups.rateGroup2] -> rateGroup2Comp.CycleIn
