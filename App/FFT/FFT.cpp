@@ -82,9 +82,9 @@ F32 FFT ::run_bench(U32 dim) {
     fft2_d(a, dim, dim, 'n');
     fft2_d(b, dim, dim, 'n');
 
-    for (U32 li = 0; li < dim_out; li++) {
-        for (U32 col = 0; col < dim_out; col++) {
-            ab[col + li * dim_out] = a[col + li * dim_out] * b[col + li * dim_out];
+    for (U32 row = 0; row < dim_out; row++) {
+        for (U32 column = 0; column < dim_out; column++) {
+            ab[column + row * dim_out] = a[column + row * dim_out] * b[column + row * dim_out];
         }
     }
 
