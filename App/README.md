@@ -42,3 +42,11 @@ In `instances.fpp` you have to configure the component instance:
   cpu x
 ```
 
+## In practice
+
+By default, all FFT instances in the topology are not enabled, i.e., they do not run any FFT algorithm.
+
+To run the benchmark with high CPU load and power consumption, the user has two commands per FFT instance.
+
+First it shall configure the dimension fo the FFT, the value determine the size of the image on which the FFT is run.
+For example, imagine you enter a dimension of 5 for the FFT instance ff1. fft1 will process an FFT on a square image of 2^5 x 2^5 = 32x32 = 1024 pixels.
