@@ -15,7 +15,7 @@ namespace Ref {
         
     }
     void Deinitialize() {
-
+        App::teardown(state);
     }
     void run_one_cycle() {
     
